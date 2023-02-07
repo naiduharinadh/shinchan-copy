@@ -14,7 +14,6 @@ function showimg() {
 
 
 
-
 function sendimgdata(){
 
  let cntnrname= document.getElementById("cname").value;
@@ -30,6 +29,30 @@ let bsimgname= document.getElementById("osname").value;
 
 
 }
+
+
+
+
+//trail method to push the docker images and set up the "pushimage" route env through ajax
+
+
+function pushimage(){
+
+// let cntnrname= document.getElementById("cname").value;
+//let bsimgname= document.getElementById("osname").value;
+ var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+     document.getElementById("pushimage").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "http://<%= msg %>:2346/pushimage, true);
+  xhttp.send();
+
+
+}
+
+
 </script>
 
 <!---- this is image creating division ---->
@@ -69,12 +92,12 @@ this id div
 
 
 
-
+<!---- terminal setups--------->
 <<iframe src="https://<%= msg %>:2323" title="W3Schools Free Online Web Tutorials"></iframe>>
 
 
 
-
+<!---- upload file form the client------>
 <form action="/uploadfile" method="post" enctype="multipart/form-data">
     <input type= "file" name= "image" />
      <input type="submit" value= "send" onclick="alert('uploaded')"/>
@@ -86,6 +109,11 @@ this id div
 
 
 <!--------- image pushing into the docker hub------------>
+<button onclick="pushimage()">push-image</button>
+<div id="pushimage" name="pushimage">
+this is push image division
 
+<iframe src="http://<%= msg %>:2346/pushimage" title="W3Schools Free Online Web Tutorials"></iframe>
+</div>
 
 

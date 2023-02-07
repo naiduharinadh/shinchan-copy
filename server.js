@@ -7,7 +7,7 @@ const {exec} = require('child_process');
 
 const app=express()
 app.use(express.urlencoded({extended:true}));
-const ip = "65.0.17.141";
+const ip = "3.110.197.49";
 
 const hostfilename="1675358498826basic2.html.html";
 
@@ -86,16 +86,27 @@ app.post("/signup" , async(req,resp) =>{
 //	resp.send(__dirname + "/loginpage.html");
 })
 
+app.post("/preacc" , (req,resp)=>{
+resp.render("login" , {msg:ip})
+})
+
 //enough for the login to our page 
 
 app.post("/login", async (req, res) => {
-    const fuser = await user.findOne({ email: req.body.lemail, password: req.body.lpassword });
+    const fuser = await user.findOne({ emailid: req.body.lemail, password: req.body.lpassword });
 //	console.log(fuser);
-	if (fuser) { res.send("this is my root page to login and access")}
+	if (fuser === null) { res.send("give correct details ")}
 	else{
-              res.send("please give the valid credentials ")
-	}
-});
+		const userdata= await user.findOne({emailid:req.body.lemail})
+       	     //	console.log(userdata);
+	    //	console.log(userdata.name);
+              	res.render("lognext" , {  name: userdata.name,
+					  userid: userdata.userid,
+					  phone: userdata.phone,
+					  mailid: userdata.emailid,
+					})
+	    }
+     });
 
 
 
@@ -164,7 +175,7 @@ app.get("/imgid" , (req,resp) =>{
 
 
 })
-app.get("/cntimage" , (req,resp) => {
+app.post("/cntimage" , (req,resp) => {
 
 const cntname=req.query.cname;
 const bosname=req.query.osname;

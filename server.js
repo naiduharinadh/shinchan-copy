@@ -7,7 +7,7 @@ const {exec} = require('child_process');
 
 const app=express()
 app.use(express.urlencoded({extended:true}));
-const ip = "3.110.197.49";
+const ip = "43.205.195.60";
 
 const hostfilename="1675358498826basic2.html.html";
 

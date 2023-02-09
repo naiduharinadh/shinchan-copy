@@ -16,7 +16,7 @@ function showimg() {
 
 function sendimgdata(){
 
- let cntnrname= document.getElementById("cname").value;
+let cntnrname= document.getElementById("cname").value;
 let bsimgname= document.getElementById("osname").value;
  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -25,28 +25,6 @@ let bsimgname= document.getElementById("osname").value;
     }
   };
   xhttp.open("GET", "http://<%= msg %>:2346/imgid?cname="+cntnrname+"&"+"osname="+bsimgname , true);
-  xhttp.send();
-
-
-}
-
-
-
-
-//trail method to push the docker images and set up the "pushimage" route env through ajax
-
-
-function pushimage(){
-
-// let cntnrname= document.getElementById("cname").value;
-//let bsimgname= document.getElementById("osname").value;
- var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4) {
-     document.getElementById("pushimage").innerHTML = this.responseText;
-    }
-  };
-  xhttp.open("GET", "http://<%= msg %>:2346/pushimage, true);
   xhttp.send();
 
 
@@ -71,6 +49,8 @@ function pushimage(){
 <div id ="iddiv" name= "iddiv">
 this id div
 </div>
+if you are not getting the terminal then : 
+<a href="https://<%= msg %>:2323" >click me and get back here</a>
 
 
 
@@ -89,11 +69,31 @@ this id div
  </div>
 
 
+<div name="descr" id="descr" style="border: 3px double blue" >
 
+<h2>do the project inside above launced os:</h2>
+<h3>
+update installer to get latest applications <br />
+
+<br />
+sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*; \
+sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*; \
+
+dnf update -y; \
+dnf --disablerepo '*' --enablerepo extras swap centos-linux-repos centos-stream-repos -y; \
+dnf distro-sync -y;
+
+
+<br /><br />
+<br />
+step:1 ==> docker start osname<br />
+step:2 ==> docker attach osname <br />
+now do all installation what you want ............
+</div>
 
 
 <!---- terminal setups--------->
-<<iframe src="https://<%= msg %>:2323" title="W3Schools Free Online Web Tutorials"></iframe>>
+<iframe src="https://<%= msg %>:2323" title="W3Schools Free Online Web Tutorials"></iframe>
 
 
 

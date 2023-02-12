@@ -31,6 +31,33 @@ let bsimgname= document.getElementById("osname").value;
 }
 
 
+
+
+
+
+
+
+//function to create the host ajax 
+function hostmmyfile(){
+
+let portno= document.getElementById("portno").value;
+let hostname= document.getElementById("hostname").value;
+let filename= document.getElementById("filename").value;
+let serverfilename = document.getElementById("serverfilename").value;
+ var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+     document.getElementById("hosturl").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("get", "http://<%= msg %>:2346/hosting?portno="+ portno +"&hostname="+ hostname +"&filename="+ filename +"&serverfile=" + serverfilename, true);
+  xhttp.send();
+
+
+}
+
+
+
 </script>
 
 <!---- this is image creating division ---->
@@ -76,12 +103,12 @@ if you are not getting the terminal then :
 update installer to get latest applications <br />
 
 <br />
-sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*; \
-sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*; \
+sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*; \<br />
+sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*; \<br />
 
-dnf update -y; \
-dnf --disablerepo '*' --enablerepo extras swap centos-linux-repos centos-stream-repos -y; \
-dnf distro-sync -y;
+dnf update -y; \ <br />
+dnf --disablerepo '*' --enablerepo extras swap centos-linux-repos centos-stream-repos -y; \ <br />
+dnf distro-sync -y;<br />
 
 
 <br /><br />
@@ -117,3 +144,20 @@ this is push image division
 </div>
 
 
+
+
+
+
+
+
+<div id="hostfile" name="hostfile">
+<form action="/hosting" method="get">
+enter port-number:<input type="text" id="portno" name="portno" /><br />
+enter hostname: <input type="text" id="hostname" name="hostname" /><br />
+enter filename: <input type="text"  id="filename" name="filename" /><br />
+enter serverfilename: <input type="text" id="serverfile" name="serverfile" />
+</div>
+
+
+<button onclick="hostmyfile()">host</button>
+<div id="hosturl" name="hosturl">hosting div</div>

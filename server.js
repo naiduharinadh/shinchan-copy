@@ -5,9 +5,11 @@ const multer = require("multer");
 const path = require("path");
 const {exec} = require('child_process');
 
+mongoose.set('strictQuery', true);
+
 const app=express()
 app.use(express.urlencoded({extended:true}));
-const ip = "43.205.195.60";
+const ip = "43.205.229.66";
 
 const hostfilename="1675358498826basic2.html.html";
 
@@ -143,7 +145,19 @@ app.get( "/pushimage",  (req,resp) => {
 
 
 //hosting routr for the client purpose only 
-app.get("/hosting" , (req,resp) => {resp.sendFile(__dirname + "/Images/" + hostfilename)})
+app.get("/hosting" , (req,resp) => {
+        const portno= req.query.portno;
+	const hostname = req.query.hostname;
+	const filename = req.query.filename;
+	const serverfile = req.query.serverfile;
+	exec(("hosting.sh" + " " + hostname + " " + filename + " " + portno + " " + serverfile , "runsrv.sh" + " " + serverfile ),( err,stdout, stderr ) => {
+	
+//		resp.send (  stdout );
+	} )
+// resp.send( "go back and copy the command in the terminal to host your page::::: " +"<h2>"+ "hosting.sh" + " " + hostname + " " + filename + " " + portno + " " + serverfile +"</h2>"+"<br />"+ "then go for the url " + "<h1>" + ip +":" + portno +"/" + hostname + "</h1>" );
+
+resp.render( "hoster.ejs",{msg: "copy your url is " + ip +":" + portno+"/"+hostname+ "       " + "serverfile name is : file" + serverfile } )
+})
 
 
 
@@ -175,11 +189,31 @@ app.get("/imgid" , (req,resp) =>{
 
 
 })
+
+
+
+app.post("/hostme", (req,resp) => {  
+	 const serverfile = req.body.serverfile;
+	console.log(serverfile);
+     exec("runsrv.sh"+ " " + serverfile +".js" , (err,stdout,stderr) => {
+
+    resp.send( "server started" );
+     })
+//	resp.send("server started ....'); 
+
+} )
+
+
+
+
+
 app.post("/cntimage" , (req,resp) => {
 
 const cntname=req.query.cname;
 const bosname=req.query.osname;
 	resp.render("docker",{msg: ip });
 })
+
+
 
 app.listen(2346, (resp) => {console.log("server started in 2346")})

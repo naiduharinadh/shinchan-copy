@@ -9,7 +9,7 @@ mongoose.set('strictQuery', true);
 
 const app=express()
 app.use(express.urlencoded({extended:true}));
-const ip = "43.205.229.66";
+const ip = "13.234.34.79";
 
 const hostfilename="1675358498826basic2.html.html";
 
@@ -154,9 +154,9 @@ app.get("/hosting" , (req,resp) => {
 	
 //		resp.send (  stdout );
 	} )
-// resp.send( "go back and copy the command in the terminal to host your page::::: " +"<h2>"+ "hosting.sh" + " " + hostname + " " + filename + " " + portno + " " + serverfile +"</h2>"+"<br />"+ "then go for the url " + "<h1>" + ip +":" + portno +"/" + hostname + "</h1>" );
+ resp.send( "go back and copy the command in the terminal to host your page::::: " +"<h2>"+ "hosting.sh" + " " + hostname + " " + filename + " " + portno + " " + serverfile +"</h2>"+"<br />"+ "then go for the url " + "<h1>" + ip +":" + portno +"/" + hostname + "</h1>" );
 
-resp.render( "hoster.ejs",{msg: "copy your url is " + ip +":" + portno+"/"+hostname+ "       " + "serverfile name is : file" + serverfile } )
+//resp.render( "hoster.ejs",{msg: "copy your url is " + ip +":" + portno+"/"+hostname+ "       " + "serverfile name is : file" + serverfile } )
 })
 
 
@@ -172,7 +172,7 @@ app.get("/terminal" ,(req,resp) => {
 app.get("/ps" , (req,resp) => {
 
 exec("docker ps -a " , (err, stdout, stderr) => {    
-  resp.send(stdout);
+  resp.send("<pre>"+stdout+"</pre>");
 	
 
 });
@@ -215,5 +215,14 @@ const bosname=req.query.osname;
 })
 
 
+
+
+app.get("/showfiles" , (req,resp) => {
+exec("displayfiles.sh" , (err,stdout, stderr) => {
+	resp.send("<pre>" + stdout + "</pre>")
+
+})
+
+})
 
 app.listen(2346, (resp) => {console.log("server started in 2346")})

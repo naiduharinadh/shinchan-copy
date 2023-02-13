@@ -44,7 +44,7 @@ button{ color:white;background-color: black; border-radius: 15px;padding: 10px;m
 button:hover{ color:black;background-color: white; border-radius: 15px;padding: 10px;margin:10px;width:7.5em;}
 body{background-image: url('https://www.vinsguru.com/wp-content/uploads/2019/08/vins-aws-ecr.gif');background-repeat: no-repeat; background-attachment: fixed;background-position: center;background-size:cover;}
 div[id="main"]{border-width: 10px;background-color:black;padding:50px 20px;border-radius:25px;}
-input[type="submit"]{ color:white;background-color: black; border-radius: 15px;padding: 10px; padding-bottom: 10px;margin:10px;width:7.5em;border-bottom-color:transparent;}
+input[type="submit"]{ color:white;background-color: black; border-radius: 15px;padding: 10px; padding-bottom: 10px;margin:10px;width:7.5em;border-bottom-color:white; border:2px solid white}
 input[type="submit"]:hover{ color:black;background-color: white; border-radius: 15px;padding: 10px;margin:10px;width:7.5em;}
 
 </style>
@@ -64,6 +64,7 @@ function loadDoc() {
 </script>
 
 <div id="main">
+<h3 style="color:white;display:block;text-align:center;opacity:60%">login:</h>
 <div id="a">
 <form action="/login" method= "post" id= "homediv">
      <label></label><input type ="email" name= "lemail" id="lemail"  placeholder="email" />
@@ -74,7 +75,7 @@ function loadDoc() {
 <div id="b">
 <script> alert("registered successfully") </script>
 <!-- <button onclick = "loadDoc()">login</button> --> 
-<div style="text-align: center ;padding: -4px;color: white ;">don't have account:</div>
+<div style="text-align: center ;padding: -4px;color: white ;"><h4 style="opacity:60%">don't have account:</h4></div>
 <form action="/home">
     <input type="submit" value="register">
 </form>

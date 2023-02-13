@@ -14,6 +14,22 @@ function showimg() {
 
 
 
+
+//dispaly files function 
+function displayfiles() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+     document.getElementById("filediv").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "http://<%= msg %>:2346/showfiles", true);
+  xhttp.send();
+}
+
+
+
+
 function sendimgdata(){
 
 let cntnrname= document.getElementById("cname").value;
@@ -147,8 +163,20 @@ this is push image division
 
 
 
+<!-- display file div -->
 
 
+<button onclick="displayfiles()">getmy file name </button>
+<div id="filediv"  style= "border:3px solid red "name="filediv">
+
+ img div files 
+ </div>
+
+
+
+
+
+<!-- hosting file division -->
 
 <div id="hostfile" name="hostfile">
 <form action="/hosting" method="get">

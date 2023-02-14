@@ -8,8 +8,8 @@ const {exec} = require('child_process');
 mongoose.set('strictQuery', true);
 
 const app=express()
-app.use(express.urlencoded({extended:true}));
-const ip = "13.234.34.79";
+app.use(express.urlencoded({extended: true}));
+const ip = "3.110.182.244";
 
 const hostfilename="1675358498826basic2.html.html";
 
@@ -154,9 +154,11 @@ app.get("/hosting" , (req,resp) => {
 	
 //		resp.send (  stdout );
 	} )
- resp.send( "go back and copy the command in the terminal to host your page::::: " +"<h2>"+ "hosting.sh" + " " + hostname + " " + filename + " " + portno + " " + serverfile +"</h2>"+"<br />"+ "then go for the url " + "<h1>" + ip +":" + portno +"/" + hostname + "</h1>" );
+ resp.send(  "your file url is: " + "<h3 style='color:white; border:2px solid white ; border-radious:50%; width:360px ;background-color: black ;text-align:center;text-opacity:30%'>" +
+	 ip +":" + portno +"/" + hostname + "</h3>" +"<br />"+"<br />" +"if you are not getting the page data then copy this command -> go back  -> paste it in the linux-terminal -> enter to start the server -> and refresh your page-url " +"<br />"+"<h3 style='color:white; text-opacity:20%; border:2px solid white ; border-radious:50%; width:75% ;background-color: black ;text-align:center;text-opacity:30%'>"+ "hosting.sh" + " " + hostname + " " + filename + " " + portno + " " + serverfile +"</h3>"+"<br />" );
 
 //resp.render( "hoster.ejs",{msg: "copy your url is " + ip +":" + portno+"/"+hostname+ "       " + "serverfile name is : file" + serverfile } )
+  resp.send("runsrv.sh" +"  "+serverfile+".js");
 })
 
 

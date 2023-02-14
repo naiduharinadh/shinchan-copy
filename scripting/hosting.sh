@@ -14,4 +14,6 @@ echo "const express= require('express')
 app.listen($3);
     " > /root/shinchan/$4.js
     cd /root/shinchan
+
+    $(node $4)
 echo "server started ....."

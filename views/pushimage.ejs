@@ -1,6 +1,15 @@
+<style>
+input{
+display=block;
+border=3px solid red;
+}  
+</style>
+
+
 <form  action= "/pushimage" method="post">
-enter osname: <input type="text" name="osname" id= "osname" />
-enter commit name: <input type="text" name="cmtname" id="cmtname" /><br />
+enter osname: <input type="text" name="osname" id= "osname" /><br />
+
+enter commit name as :v1.0: <div style=" border:'3px  solid red '"><input type="text" name="cmtname" id="cmtname" place-holder="os1:v1.0" /><br />
 like: dockeruserid/commitname(same as above)
 enter tagname: <input type="text" name="tagname" id="tagname" /><br />
 enter credentials:<br />

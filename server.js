@@ -126,7 +126,7 @@ app.post("/pushimage" , (req,resp)=> {
 	const userid= req.body.userid;
 	const dckpassword= req.body.dckpassword;
      exec("imgcreate.sh "+" "+ osname + "  "+ cmtname + " "+tagname +" "+ userid +" "+ dckpassword , (err, stdout, stderr) => {
-  resp.send(stdout);
+  resp.send( "<pre>"+stdout+"</pre>");
      })
 
 })

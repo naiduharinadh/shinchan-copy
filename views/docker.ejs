@@ -1,59 +1,62 @@
 
-<script>
-function showimg() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4) {
-     document.getElementById("psdiv").innerHTML = this.responseText;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+
+    function showimg() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+         document.getElementById("psdiv").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "http://<%= msg %>:2346/ps", true);
+      xhttp.send();
     }
-  };
-  xhttp.open("GET", "http://<%= msg %>:2346/ps", true);
-  xhttp.send();
-}
-
-
-
-
-
-//dispaly files function 
-function displayfiles() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4) {
-     document.getElementById("filediv").innerHTML = this.responseText;
+    
+    
+    
+    
+    
+    //dispaly files function
+    function displayfiles() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+         document.getElementById("filediv").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "http://<%= msg %>:2346/showfiles", true);
+      xhttp.send();
     }
-  };
-  xhttp.open("GET", "http://<%= msg %>:2346/showfiles", true);
-  xhttp.send();
-}
-
-
-
-
-function sendimgdata(){
-
-let cntnrname= document.getElementById("cname").value;
-let bsimgname= document.getElementById("osname").value;
- var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4) {
-     document.getElementById("iddiv").innerHTML = this.responseText;
+    
+    
+    
+    
+    function sendimgdata(){
+    
+    let cntnrname= document.getElementById("cname").value;
+    let bsimgname= document.getElementById("osname").value;
+     var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+         document.getElementById("iddiv").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "http://<%= msg %>:2346/imgid?cname="+cntnrname+"&"+"osname="+bsimgname , true);
+      xhttp.send();
+    
+    
     }
-  };
-  xhttp.open("GET", "http://<%= msg %>:2346/imgid?cname="+cntnrname+"&"+"osname="+bsimgname , true);
-  xhttp.send();
 
 
-}
-
-
-
-
-
-
-
-
-//function to create the host ajax 
+    
+//function to create the host ajax
 function hostmmyfile(){
 
 let portno= document.getElementById("portno").value;
@@ -72,120 +75,183 @@ let serverfilename = document.getElementById("serverfilename").value;
 
 }
 
-
-
 </script>
+<style>
 
-<!---- this is image creating division ---->
+
+
+*{padding: 0%;margin: 0%;}
+
+body{background-image: background-image:linear-gradient( 110deg,white,orange );background-repeat: no-repeat;background-size: cover;background-position: center;}
+
+//body{background-image: url("https://th.bing.com/th/id/OIP.ROJm4ioFdQKua2WdrYVHjwHaEK?pid=ImgDet&rs=1");background-repeat: no-repeat;background-size: cover;background-position: center;}
+.os,select,.img{background-color: black;color:white;width:17em;height:2.5em;border-radius: 2em;border: 1px;margin-left:0.7em;margin-right: 1em;}
+
+option{height:2em; color:white;background-color: black; border-radius: 1em;text-align: center;}
+
+#imgcrt{display:flex;justify-content: center;padding:1em;align-items: center;}
+
+#iddiv{ margin-bottom: 70px;height:2em;display: block;border-radius: 21px;background-color: grey;color:white;display: flex;justify-content: center;align-items: center;font-size: larger;}
+
+.not{display:flex;flex-direction: row; float:right; display: block;}
+
+.button{height:3em;width:17em;background-color: black;color:white;border-radius:2em}
+.button:hover{height:3em;width:17em;background-color:white;color:black;border-radius:2em;cursor: pointer;}
+
+.hfd{margin:8px;padding:5px;width:20vw;height:30px;color:white;background-color: black;border-radius: 2em;text-align: center; }
+</style>
+</head>
+
+
+<body>
+
+  <!---- this is image creating division ---->
 <div id="imgcrt" name="imgcrt">
-       <form action="/imgid"  method="get">	
-	enter os name : <input type="text" name= "cname" id="cname" />
-	<label for="baseos">choose base image: </label>
+  <div>
+       <form action="/imgid"  method="get">
+        <label>ENTER YOUR OS NAME</label><input type="text" name= "cname" id="cname" class="os" placeholder="os name"/>
+        <label for="baseos">CHOOSE BASE IMAGE </label>
 
-	<select name="osname" id="osname">
-  	<option value="centos">CENTOS</option>
-  	<option value="ubuntu">UBUNTU</option>
-	</select>
-	</form>
+        <select name="osname" id="osname">
+        <option value="centos" style="border-radius:1em;">CENTOS</option>
+        <option value="ubuntu">UBUNTU</option>
+        </select>
+        </form>
   </div>
-<button onclick= "sendimgdata()">createimage</button>
+  <div><button onclick= "sendimgdata()" class="img" style="height:2.5em;padding:0.3em;">createimage</button></div>
+</div>
+
 <div id ="iddiv" name= "iddiv">
-this id div
 </div>
-if you are not getting the terminal then : 
-<a href="https://<%= msg %>:2323" >click me and get back here</a>
 
+<div style="display: flex;justify-content: center;padding:1em 0em;"><button onclick="showimg()" class="button">showimages</button></div>
 
-
-
-
-
-
-
-
-
-
-<button onclick="showimg()">showimages</button>
-<div id="psdiv"  style= "border:3px solid red "name="psdiv">
-
-   this is ps div
+<div id="psdiv"  style= "  margin-bottom: 70px;display: block ;border-radius: 20px; border:3px solid rgb(130, 130, 130) ;height:19vh;align-items: center;justify-content: center;display: flex;"name="psdiv">
+  <label>THIS IS PS DIV</label>
  </div>
+ 
 
-
-<div name="descr" id="descr" style="border: 3px double blue" >
-
+<div name="descr" id="descr" style="display: block;border-radius: 20px;border: 0.2em black groove;text-transform: capitalize;display:flex;justify-self: center;flex-direction: column;align-items: center;" >
+  <div style="opacity: 90%;">
 <h2>do the project inside above launced os:</h2>
-<h3>
-update installer to get latest applications <br />
-
-<br />
-sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*; \<br />
-sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*; \<br />
-
-dnf update -y; \ <br />
-dnf --disablerepo '*' --enablerepo extras swap centos-linux-repos centos-stream-repos -y; \ <br />
-dnf distro-sync -y;<br />
-
-
-<br /><br />
-<br />
-step:1 ==> docker start osname<br />
-step:2 ==> docker attach osname <br />
-now do all installation what you want ............
 </div>
+<div  style="opacity: 90%;">
+<h3>
+update installer to get latest applications </h3><br/>
+</div>
+
+<br />
+<script>
+  function copy() {
+  let textarea = document.getElementById("textarea");
+  textarea.select();
+  document.execCommand("copy");
+}
+  </script>
+  <pre>
+<textarea id="textarea" style="height:15vh;width:100vw;margin-top: 0%;text-align: center; display:flex;justify-content: center;width:95vw">
+
+
+sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*; 
+
+sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*; 
+
+dnf update -y; 
+
+dnf --disablerepo '*' --enablerepo extras swap centos-linux-repos centos-stream-repos -y; 
+
+dnf distro-sync -y;
+
+
+</textarea></pre>
+<button onclick="copy()" class="button" style="height: 2.7em; margin: 0.3em 0em;">Copy text</button>
+
+</div>
+  
+
+
+<br />
+<div style="text-align: center;">
+<h2>COMMANDS</h2>
+<p><b>step:1 ==></b> docker start osname
+<b>step:2 ==></b> docker attach osname
+<b>step:3 ==></b>now do all installation what you want ...........</p>.
+</div>
+<br>
 
 
 <!---- terminal setups--------->
-<iframe src="https://<%= msg %>:2323" title="W3Schools Free Online Web Tutorials"></iframe>
+<div style="border:3px solid grey;margin-bottom: 60px; border-radius: 25px;">
+<div style="width:100vw;display: flex;justify-content: center;margin: 0%;">
+<iframe src="https://<%= msg %>:2323" title="W3Schools Free Online Web Tutorials" style="width:80vw;height:70vh; border-style:inset;border-width: 2em;"></iframe>
+</div>
+
+<div style="display:inline-block;display: flex;justify-content:right;margin-right: 9vw ;margin-top:1em;">
+  <div><label style="color:aqua" >if you are not getting the terminal then :</label></div>
+  <div><button class="button" ><a href="https://<%= msg %>:2323" style="text-decoration:none;color:rgb(154, 4, 4)">ALLOW ME</a></button></div>
+  </div>
+</div>
+</div>
+  
 
 
 
 <!---- upload file form the client------>
+<div style="display: flex;flex-direction: column; justify-content: center;align-items: center;">
+  <div style="display: flex; justify-content: center; display: block;border-radius: 20px;border:solid 3px gray ;padding:1em; border-bottom-color:transperent;border-bottom-width: 0cap;">
 <form action="/uploadfile" method="post" enctype="multipart/form-data">
     <input type= "file" name= "image" />
-     <input type="submit" value= "send" onclick="alert('uploaded')"/>
+     <input type="submit" value= "send" onclick="alert('uploaded')" class="button" />
   </form>
-
-
-
-
-
-
-<!--------- image pushing into the docker hub------------>
-<button onclick="pushimage()">push-image</button>
-<div id="pushimage" name="pushimage">
-this is push image division
-
-<iframe src="http://<%= msg %>:2346/pushimage" title="W3Schools Free Online Web Tutorials"></iframe>
+  </div>
 </div>
 
 
+<!--this is grid div-->>
 
 
+<div style="display: grid; grid-template-areas:'b c a';padding:1vw;column-gap:1em;border:outset crimson 1vw;width:95vw;height:80vh;display: flex;justify-content: center;align-items: center;">
 
-<!-- display file div -->
 
+<!--------------------->
 
-<button onclick="displayfiles()">getmy file name </button>
-<div id="filediv"  style= "border:3px solid red "name="filediv">
+  <!-- display file div -->
+<div style="display: flex; justify-content: center;flex-direction:column;align-items:  center ;width:23vw;grid-area: b;height: 70vh;" >
+<div>
+<button onclick="displayfiles()" class="button" style="margin-bottom: 0.9em;">getmy file name </button>
+</div>
+<div id="filediv"  style= "border:3px solid rgb(145, 144, 144) ;width:20vw;height:65vh;display: flex;border-radius: 22px;justify-content: center;align-items: center; "name="filediv">
 
- img div files 
+ img div files
  </div>
-
-
-
-
-
-<!-- hosting file division -->
-
-<div id="hostfile" name="hostfile">
-<form action="/hosting" method="get">
-enter port-number:<input type="text" id="portno" name="portno" /><br />
-enter hostname: <input type="text" id="hostname" name="hostname" /><br />
-enter filename: <input type="text"  id="filename" name="filename" /><br />
-enter serverfilename: <input type="text" id="serverfile" name="serverfile" />
 </div>
 
 
-<button onclick="hostmyfile()">host</button>
-<div id="hosturl" name="hosturl">hosting div</div>
+<!--------- image pushing into the docker hub----------
+<button onclick="pushimage()">push-image</button>-->
+<div id="pushimage" name="pushimage" style="display: inline;border-radius: 22px;width:50vw;height:70vh; display: flex;flex-direction: column;grid-area: c;border:3px rgb(145, 144, 144) solid">
+<h1  style="display: inline;text-align: center;">THIS IS PUSH IMAGE DIVISON</h1>
+<iframe src="http://<%= msg %>:2346/pushimage" title="W3Schools Free Online Web Tutorials"  style="display: inline; border-radius: 22px ;width:48vw;height: 70vh;"></iframe>
+</div>
+
+
+ <!-- hosting file division -->
+
+<div id="hostfile" name="hostfile" style="display:flex;border-radius: 22px;align-items:center;justify-content: center; width:23vw;height: 70vh;grid-area: a;border: 3px rgb(143, 143, 143) solid">
+    <form action="/hosting" method="get" style="display:block">
+    <input type="text" id="portno" name="portno" placeholder="ENTER PORT-NUMBER" class="hfd"/>
+    <input type="text" id="hostname" name="hostname" placeholder="ENTER HOSTNAME" class="hfd"/>
+    <input type="text"  id="filename" name="filename" placeholder="ENTER FILENAME" class="hfd"/>
+    <input type="text" id="serverfile" name="serverfile" placeholder="ENTER SERVER FILENAME"  class="hfd"/>
+    <div style="display:flex;align-items:center;justify-content: center;margin:2em;">
+    <button onclick="hostmyfile()" class="button">host</button>
+    </div>
+  </div>
+
+
+    
+  </div>
+    
+    <!--<div id="hosturl" name="hosturl">hosting div</div>-->
+</body>
+</html>

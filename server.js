@@ -9,7 +9,7 @@ mongoose.set('strictQuery', true);
 
 const app=express()
 app.use(express.urlencoded({extended: true}));
-const ip = "3.110.182.244";
+const ip = "43.205.236.106";
 
 const hostfilename="1675358498826basic2.html.html";
 
@@ -18,7 +18,7 @@ app.set("view engine" , "ejs");
 const storage = multer.diskStorage({
 
 	            destination:(req,file,cb) => {
-		           cb(null,"Images");
+		           cb(null,"Images")
 	                      },
 
 

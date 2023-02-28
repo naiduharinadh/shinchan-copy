@@ -9,7 +9,7 @@ mongoose.set('strictQuery', true);
 
 const app=express()
 app.use(express.urlencoded({extended: true}));
-const ip = "43.205.236.106";
+const ip = "35.154.126.230";
 
 const hostfilename="1675358498826basic2.html.html";
 

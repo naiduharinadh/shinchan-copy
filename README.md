@@ -1,1 +1,2 @@
 # auto-image
+# shinchan1

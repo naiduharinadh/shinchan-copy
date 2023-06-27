@@ -3,3 +3,4 @@ step2: copy the script from the installation_script from the above files and cop
 step3: bash name.sh 
 step4: then go to the shinchan/ folder and run project by runnig "npm start "
 step5:  if it not work then go to  " /root/.bashrc " and go to path line and keep the path in the double quotes
+# shinchan-copy

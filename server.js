@@ -9,7 +9,7 @@ mongoose.set('strictQuery', true);
 
 const app=express()
 app.use(express.urlencoded({extended: true}));
-const ip = "35.154.126.230";
+const ip = "43.204.212.189";
 
 const hostfilename="1675358498826basic2.html.html";
 
@@ -75,11 +75,20 @@ app.post("/signup" , async(req,resp) =>{
 	                          emailid:req.body.emailid,
 	                          password:req.body.password,
 		  })
-	const User= await user.findOne({emailid:req.body.emailid});
+	const User= await user.findOne({userid:req.body.userid});
+	const Userid= await user.findOne({emailid:req.body.emailid});
 	if(User)
 	{
 		console.log(User);
-		resp.send("already this mail used ....")}
+		//try to render same page than goes to the another  page which should detect the repeated value of the mail 
+		resp.send("already this userid used ....")}
+
+
+	else if (Userid){
+            resp.send("mailid is user laready ");
+	}
+	
+
        else{
 	u.save();
 	resp.render("login"  , {msg:ip }); 
@@ -95,18 +104,33 @@ resp.render("login" , {msg:ip})
 //enough for the login to our page 
 
 app.post("/login", async (req, res) => {
-    const fuser = await user.findOne({ emailid: req.body.lemail, password: req.body.lpassword });
+    const fuser = await user.findOne({ emailid: req.body.lemail, password: req.body.lpassword  });
 //	console.log(fuser);
 	if (fuser === null) { res.send("give correct details ")}
 	else{
 		const userdata= await user.findOne({emailid:req.body.lemail})
        	     //	console.log(userdata);
 	    //	console.log(userdata.name);
+	
+
+		exec("adduser.sh"+ "  " + userdata.password+"  "+userdata.userid , (err, stdout, stderr) => {
+			console.log(userdata.userid);
+			console.log(userdata.password);
+				  res.render("lognext" ,
+					  { 
+					      name: userdata.name,
+                                             userid: userdata.userid,
+                                             phone: userdata.phone,
+                                             mailid: userdata.emailid,
+                                           })
+     })
+
+		/*
               	res.render("lognext" , {  name: userdata.name,
 					  userid: userdata.userid,
 					  phone: userdata.phone,
 					  mailid: userdata.emailid,
-					})
+					})  */
 	    }
      });
 
@@ -185,12 +209,38 @@ exec("docker ps -a " , (err, stdout, stderr) => {
 app.get("/imgid" , (req,resp) =>{  
    const cntname= req.query.cname;
 	const bosname= req.query.osname;
-	exec( " docker run -dit --name " + " " + cntname+ " "+ bosname , (err, stdout, stderr) => {
+	const networkname= req.query.network;
+	const memory = req.query.memory;
+	exec( " docker run -dit --name " + cntname+" " +"--network"+ " "+ networkname+" "+ "--memory"+" "+ memory+"MB" +"  " +bosname , (err, stdout, stderr) => {
                resp.send("your container id is : " + stdout);
   })
 
 
 })
+
+
+
+
+
+app.get("/networkcreate", (req,resp)=> {
+        const networkname= req.query.networkname;
+	const subnetvalue= req.query.subnetvalue;
+	console.log(networkname);
+	console.log(subnetvalue);
+	exec("docker" + "  "+"network"+ "  "+ "create"+"  "+networkname+" "+"-d"+"  "+"bridge"+" "+"--subnet="+subnetvalue , (err, stdout, stderr)=> {resp.send("your network id is:"+ stdout )})
+
+//	exec("docker network create network3 -d bridge --subnet=3.4.0.0/16" , (err, stdout, stderr)=> {resp.send("your network id is:"+ stdout )})
+})
+
+app.post("/getnetworkdetils" , (req,resp) => {
+
+const networkname=req.body.networkname;
+const subnetvalue=req.body.subnetvalue;
+        resp.render("docker",{msg: ip });
+})
+
+
+
 
 
 

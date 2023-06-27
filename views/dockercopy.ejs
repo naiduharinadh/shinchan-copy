@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <title>Document</title>
   <script>
 
@@ -43,15 +42,13 @@
     
     let cntnrname= document.getElementById("cname").value;
     let bsimgname= document.getElementById("osname").value;
-    let networkname = document.getElementById("network").value;
-    let memory =  document.getElementById("memory").value;
      var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4) {
          document.getElementById("iddiv").innerHTML = this.responseText;
         }
       };
-      xhttp.open("GET", "http://<%= msg %>:2346/imgid?cname="+cntnrname+"&"+"osname="+bsimgname+"&"+"network="+networkname+"&"+"memory="+memory , true);
+      xhttp.open("GET", "http://<%= msg %>:2346/imgid?cname="+cntnrname+"&"+"osname="+bsimgname , true);
       xhttp.send();
     
     
@@ -77,25 +74,6 @@ let serverfilename = document.getElementById("serverfilename").value;
 
 
 }
-
-
-//send networkdata ajax code 
-
-function sendnetworkdata(){
-
-let networkname= document.getElementById("networkname").value;
-let subnetvalue= document.getElementById("subnetvalue").value;
- var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4) {
-     document.getElementById("networkresp").innerHTML = this.responseText;
-    }
-  };
-  xhttp.open("get", "http://<%= msg %>:2346/networkcreate?networkname="+networkname+"&"+"subnetvalue="+subnetvalue, true);
-  xhttp.send();
-}
-
-
 
 </script>
 <style>
@@ -126,30 +104,18 @@ option{height:2em; color:white;background-color: black; border-radius: 1em;text-
 
 
 <body>
-<!-- network create-->
-<form action="/networkcreate" method="get">
-enter netname: <input name="networkname" id="networkname" />
-enter subnetvalue: <input name="subnetvalue" id="subnetvalue" />
-</form>
-<button onclick= "sendnetworkdata()">createnetwork</button>
-<div id="networkresp" name="networkresp">network status and id </div>
-
 
   <!---- this is image creating division ---->
 <div id="imgcrt" name="imgcrt">
   <div>
        <form action="/imgid"  method="get">
         <label>ENTER YOUR OS NAME</label><input type="text" name= "cname" id="cname" class="os" placeholder="os name"/>
-        
-        enter network name: <input type="text" name="network" id="network" placeholder="default: BRIDGE" />
-amount of memory: <input type="number" name="memory" id="memory" placeholder="Ex: 40MB"/>
         <label for="baseos">CHOOSE BASE IMAGE </label>
 
         <select name="osname" id="osname">
-        <option value="centos:8" style="border-radius:1em;">CENT-OS</option>
+        <option value="centos:7" style="border-radius:1em;">CENTOS</option>
         <option value="ubuntu">UBUNTU</option>
         </select>
-
         </form>
   </div>
   <div><button onclick= "sendimgdata()" class="img" style="height:2.5em;padding:0.3em;">createimage</button></div>
@@ -165,6 +131,11 @@ amount of memory: <input type="number" name="memory" id="memory" placeholder="Ex
  </div>
  
 
+<div name="descr" id="descr" style="display: block;border-radius: 20px;border: 0.2em black groove;text-transform: capitalize;display:flex;justify-self: center;flex-direction: column;align-items: center;" >
+  <div style="opacity: 90%;">
+<h2>do the project inside above launced os:</h2>
+</div>
+</div>
   
 
 
@@ -251,6 +222,4 @@ amount of memory: <input type="number" name="memory" id="memory" placeholder="Ex
   </div>
     
     <!--<div id="hosturl" name="hosturl">hosting div</div>-->
-</body>
-</html>
-
+e

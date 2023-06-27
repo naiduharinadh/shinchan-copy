@@ -6,3 +6,4 @@ step5:  if it not work then go to  " /root/.bashrc " and go to path line and kee
 # shinchan-copy
 # newrepos1
 # shinchan-copy
+# shinchan-copy

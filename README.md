@@ -5,3 +5,4 @@ step4: then go to the shinchan/ folder and run project by runnig "npm start "
 step5:  if it not work then go to  " /root/.bashrc " and go to path line and keep the path in the double quotes
 # shinchan-copy
 # newrepos1
+# shinchan-copy

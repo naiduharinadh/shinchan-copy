@@ -9,7 +9,7 @@ mongoose.set('strictQuery', true);
 
 const app=express()
 app.use(express.urlencoded({extended: true}));
-const ip = "43.204.212.189";
+const ip = "13.233.110.169";
 
 const hostfilename="1675358498826basic2.html.html";
 
@@ -49,7 +49,8 @@ app.post("/uploadfile" ,upload.single("image"), (req,resp) => {
 
 
  //database connection class creation 
-mongoose.connect("mongodb://127.0.0.1:27017/userdata");
+//mongoose.connect("mongodb://127.0.0.1:27017/userdata");
+mongoose.connect("mongodb+srv://harinadh14:N%40dh2306@atlascluster.9fb52n9.mongodb.net/userdata");
 app.use(express.urlencoded({extended:"true"}));
 const userschema = mongoose.Schema({
 	name:String,
@@ -57,7 +58,7 @@ const userschema = mongoose.Schema({
 	phone:Number,
 	emailid:String,
 	password:String,
-})
+});
 
 const user= mongoose.model("user" , userschema);
 
@@ -81,11 +82,11 @@ app.post("/signup" , async(req,resp) =>{
 	{
 		console.log(User);
 		//try to render same page than goes to the another  page which should detect the repeated value of the mail 
-		resp.send("already this userid used ....")}
+		resp.render("form",{msg:"userid OR email  already exsted"})}
 
 
 	else if (Userid){
-            resp.send("mailid is user laready ");
+            resp.send("form", {msg: "userid OR email already existed"});
 	}
 	
 
@@ -106,7 +107,7 @@ resp.render("login" , {msg:ip})
 app.post("/login", async (req, res) => {
     const fuser = await user.findOne({ emailid: req.body.lemail, password: req.body.lpassword  });
 //	console.log(fuser);
-	if (fuser === null) { res.send("give correct details ")}
+	if (fuser === null) { res.render("login", {msg:"please provide correct credentials"})}
 	else{
 		const userdata= await user.findOne({emailid:req.body.lemail})
        	     //	console.log(userdata);

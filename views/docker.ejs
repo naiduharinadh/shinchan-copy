@@ -85,13 +85,14 @@ function sendnetworkdata(){
 
 let networkname= document.getElementById("networkname").value;
 let subnetvalue= document.getElementById("subnetvalue").value;
+let nettype= document.getElementById("nettype").value;
  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4) {
      document.getElementById("networkresp").innerHTML = this.responseText;
     }
   };
-  xhttp.open("get", "http://<%= msg %>:2346/networkcreate?networkname="+networkname+"&"+"subnetvalue="+subnetvalue, true);
+  xhttp.open("get", "http://<%= msg %>:2346/networkcreate?networkname="+networkname+"&"+"subnetvalue="+subnetvalue+"&"+"nettype="+nettype , true);
   xhttp.send();
 }
 
@@ -130,6 +131,10 @@ option{height:2em; color:white;background-color: black; border-radius: 1em;text-
 <form action="/networkcreate" method="get">
 enter netname: <input name="networkname" id="networkname" />
 enter subnetvalue: <input name="subnetvalue" id="subnetvalue" />
+<select name="nettype" id="nettype">
+    <option value="bridge">bridge</option>
+    <option value="overlay">overlay</option>
+  </select>
 </form>
 <button onclick= "sendnetworkdata()">createnetwork</button>
 <div id="networkresp" name="networkresp">network status and id </div>
@@ -249,6 +254,8 @@ amount of memory: <input type="number" name="memory" id="memory" placeholder="Ex
 
     
   </div>
+
+
     
     <!--<div id="hosturl" name="hosturl">hosting div</div>-->
 </body>

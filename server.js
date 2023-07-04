@@ -9,7 +9,7 @@ mongoose.set('strictQuery', true);
 
 const app=express()
 app.use(express.urlencoded({extended: true}));
-const ip = "13.233.110.169";
+const ip = "65.2.183.6";
 
 const hostfilename="1675358498826basic2.html.html";
 
@@ -50,7 +50,7 @@ app.post("/uploadfile" ,upload.single("image"), (req,resp) => {
 
  //database connection class creation 
 //mongoose.connect("mongodb://127.0.0.1:27017/userdata");
-mongoose.connect("mongodb+srv://harinadh14:N%40dh2306@atlascluster.9fb52n9.mongodb.net/userdata");
+mongoose.connect("mongodb+srv://harinadh14:N%40dh2306@atlascluster.9fb52n9.mongodb.net/userdata22");
 app.use(express.urlencoded({extended:"true"}));
 const userschema = mongoose.Schema({
 	name:String,
@@ -226,9 +226,11 @@ app.get("/imgid" , (req,resp) =>{
 app.get("/networkcreate", (req,resp)=> {
         const networkname= req.query.networkname;
 	const subnetvalue= req.query.subnetvalue;
+	const nettype= req.query.nettype;
 	console.log(networkname);
 	console.log(subnetvalue);
-	exec("docker" + "  "+"network"+ "  "+ "create"+"  "+networkname+" "+"-d"+"  "+"bridge"+" "+"--subnet="+subnetvalue , (err, stdout, stderr)=> {resp.send("your network id is:"+ stdout )})
+	console.log(nettype);
+	exec("docker" + "  "+"network"+ "  "+ "create"+"  "+networkname+" "+"-d"+"  "+nettype+" "+"--subnet="+subnetvalue , (err, stdout, stderr)=> {resp.send("your network id is:"+ stdout )})
 
 //	exec("docker network create network3 -d bridge --subnet=3.4.0.0/16" , (err, stdout, stderr)=> {resp.send("your network id is:"+ stdout )})
 })
